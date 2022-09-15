@@ -1,0 +1,6 @@
+{
+    "dc:title": "dcterms:title",
+    "dc:publisher": "dcterms:publisher",
+    "dc:identifier": "dcterms:identifier",
+    "administrative_history": "matica:administrative_history"
+}
