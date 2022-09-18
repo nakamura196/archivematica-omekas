@@ -4,3 +4,5 @@ __pycache__
 tmp
 .env
 http_cache.sqlite
+test-txt-item*
+data/sample/ex02-1-TIFF-007c28cc-4671-4d5d-be2a-facace4c7b84

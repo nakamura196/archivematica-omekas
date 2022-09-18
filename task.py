@@ -20,9 +20,11 @@ class Task:
             key_credential=self.KEY_CREDENTIAL
         )
 
-    def upload(self, metadata_path, media_path):
+    def upload(self, metadata_path, media_path, is_public):
         '''アイテムとメディアの登録
         '''
+
+        self.is_public = is_public
 
         # アイテムの登録
         self.upload_items(metadata_path)        
@@ -66,6 +68,14 @@ class Task:
         data = self.omeka_auth.filter_items_by_property(filter_property=term, filter_value=value)
         return data["results"]
 
+    def test2(self, term, value):
+        url = f"{self.API_URL}/items?property[0][property]={term}&property[0][type]=eq&property[0][text]={value}&key_identity={self.KEY_IDENTITY}&key_credential={self.KEY_CREDENTIAL}"
+        import requests
+        df = requests.get(url).json()
+        return {
+            "results": df
+        }
+
     def update(self, test_item):
 
         term = self.term
@@ -99,8 +109,9 @@ class Task:
         id = local_item[term][0]
 
         # 既存のIDを持つアイテムの取得
-        data = omeka_auth.filter_items_by_property(filter_property=term, filter_value=id)
-        
+        # data = omeka_auth.filter_items_by_property(filter_property=term, filter_value=id, is_public=self.is_public)
+        data = self.test2(term, id)
+
         results = data["results"]
 
         flg = True
@@ -114,6 +125,8 @@ class Task:
                     payload_old[key] = payload[key]
 
                 payload = payload_old
+
+        payload["is_public"] = self.is_public
 
         # バグ修正
 
@@ -151,7 +164,7 @@ class Task:
             if len(arr) > 0:
                 id_map[id] = arr[0]["o:id"]
 
-        print("\n画像の登録\n")
+        print("\nメディアの登録\n")
 
         for item in tqdm(items):
             id = item["item"][0]
