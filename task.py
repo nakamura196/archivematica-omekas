@@ -1,3 +1,4 @@
+from tkinter import S
 from omeka_s_tools.api import OmekaAPIClient
 import pandas as pd
 from pprint import pprint
@@ -65,16 +66,10 @@ class Task:
         return items
 
     def getExistingsValues(self, term, value):
-        data = self.omeka_auth.filter_items_by_property(filter_property=term, filter_value=value)
-        return data["results"]
-
-    def test2(self, term, value):
         url = f"{self.API_URL}/items?property[0][property]={term}&property[0][type]=eq&property[0][text]={value}&key_identity={self.KEY_IDENTITY}&key_credential={self.KEY_CREDENTIAL}"
         import requests
         df = requests.get(url).json()
-        return {
-            "results": df
-        }
+        return df
 
     def update(self, test_item):
 
@@ -84,6 +79,8 @@ class Task:
         omeka_auth = self.omeka_auth
 
         local_item = deepcopy(test_item)
+
+        replaced_fields = {}
 
         for field in local_item:
             if "^^resource" in field:
@@ -100,8 +97,15 @@ class Task:
                             "value": existing_values[0]["o:id"]
                         })
 
+                '''
                 del local_item[field]
                 local_item[field.split(" ")[0]] = resources
+                '''
+                replaced_fields[field] = resources
+
+        for field in replaced_fields:
+            del local_item[field]
+            local_item[field.split(" ")[0]] = replaced_fields[field]
 
         payload = omeka_auth.prepare_item_payload(local_item)
         
@@ -109,10 +113,7 @@ class Task:
         id = local_item[term][0]
 
         # 既存のIDを持つアイテムの取得
-        # data = omeka_auth.filter_items_by_property(filter_property=term, filter_value=id, is_public=self.is_public)
-        data = self.test2(term, id)
-
-        results = data["results"]
+        results = self.getExistingsValues(term, id)
 
         flg = True
 

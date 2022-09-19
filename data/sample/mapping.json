@@ -1,6 +1,20 @@
 {
     "dc:title": "dcterms:title",
-    "dc:publisher": "dcterms:publisher",
+    "dc:creator": "dcterms:creator",
+    "dc:subject": "dcterms:subject",
+    "dc:description": "dcterms:description",
+    "dc:date": "dcterms:date",
+    "dc:type": "dcterms:type",
+    "dc:format": "dcterms:format",
     "dc:identifier": "dcterms:identifier",
+    "dc:source": "dcterms:source",
+    "dc:language": "dcterms:language",
+    "dc:publisher": "dcterms:publisher",
+
+    "dcterms:isPartof": "dcterms:isPartof",
+    "dcterms:isRequiredBy": "dcterms:isRequiredBy",
+    "dcterms:accessRights": "dcterms:accessRights",
+    "dcterms:provenance": "dcterms:provenance",
+
     "administrative_history": "matica:administrative_history"
 }
