@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "archivematica-omekas"
+  site-url: "https://nakamura196.github.io/archivematica-omekas"
+  description: ""
+  repo-branch: main
+  repo-url: "https://github.com/nakamura196/archivematica-omekas"

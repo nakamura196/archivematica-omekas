@@ -1,4 +1,0 @@
-bs4
-lxml
-# omeka_s_tools
-python-dotenv
