@@ -3,3 +3,4 @@ website:
     contents:
       - index.ipynb
       - api.ipynb
+      - demo.ipynb

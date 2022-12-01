@@ -37,7 +37,8 @@ class OmekaClient:
       print(self.API_URL, self.KEY_IDENTITY, self.KEY_CREDENTIAL)
 
   def upload(self, metadata_path, media_path, is_public):
-      '''アイテムとメディアの登録
+      '''Upload item and media  
+      アイテムとメディアの登録
       '''
 
       self.is_public = is_public
@@ -50,9 +51,10 @@ class OmekaClient:
       self.upload_media(items, media_path)
 
   def upload_items(self, metadata_path):
-      '''アイテムの登録
+      '''Upload item  
+      アイテムの登録
       '''
-      print("アイテムの登録")
+      print("Upload item")
       items = self.convertCsv2Json(metadata_path)
       for item in tqdm(items):
           self.update(item)
@@ -491,7 +493,8 @@ class ArchiveMaticaOmeka:
 
   
   def moveObjects(self):
-    """Omekaへの登録用のフォーマットに変換
+    """Move objects to tmp directory  
+    ファイルの移動
     """
     ## 
     path = glob.glob(f"{self.tmp_dir_path}/*/objects")[0]
@@ -499,7 +502,8 @@ class ArchiveMaticaOmeka:
 
   @staticmethod
   def convert(dip_zip_file_path, mapping_json_file_path, task_id="bcd"):
-    """Omekaへの登録用のフォーマットに変換
+    """Convert DIP to Omeka format  
+    Omekaへの登録用のフォーマットに変換
 
     Parameters:
     * `dip_zip_file_path` - path to a dip zip file exported from Archivematica (str or pathlib Path)  
